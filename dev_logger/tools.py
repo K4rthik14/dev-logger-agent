@@ -3,7 +3,7 @@ from datetime import datetime, date
 from typing import Optional
 
 from git import Repo, InvalidGitRepositoryError
-from langchain.tools import tool
+from langchain_core.tools import tool
 
 _repo: Optional[Repo] = None
 _repo_path: str = ""
