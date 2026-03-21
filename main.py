@@ -57,7 +57,7 @@ def log(
             console.print(f"\n[bold]📅 Processing {target_date}...[/bold]")
             # Skip days with no commits
             repo = Repo(repo_path, search_parent_directories=True)
-            commits = list(_repo.iter_commits(after=f"{target_date} 00:00:00", before=f"{target_date} 23:59:59"))
+            commits = list(repo.iter_commits(after=f"{target_date} 00:00:00", before=f"{target_date} 23:59:59"))
             if not commits:
                 console.print(f"[dim]  No commits on {target_date}, skipping.[/dim]")
                 continue

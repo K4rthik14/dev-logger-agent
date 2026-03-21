@@ -29,7 +29,7 @@ def get_repo_info() -> str:
         name = os.path.basename(_repo_path)
         branch = _repo.active_branch.name
         remotes = [r.url for r in _repo.remotes] if _repo.remotes else ["(no remote)"]
-        today_commits = len(list(_repo.iter_commits(after=f"{date.today()} 00:00:00")))
+        today_commits = len(list(repo.iter_commits(after=f"{date.today()} 00:00:00")))
         return (
             f"Repo: {name}\n"
             f"Branch: {branch}\n"
@@ -47,7 +47,7 @@ def get_commits(since_date: str = "") -> str:
         return "Error: Repository not initialized."
     target_date = since_date.strip() if since_date else str(date.today())
     try:
-        commits = list(_repo.iter_commits(after=f"{target_date} 00:00:00", before=f"{target_date} 23:59:59"))
+        commits = list(repo.iter_commits(after=f"{target_date} 00:00:00", before=f"{target_date} 23:59:59"))
     except Exception as e:
         return f"Error fetching commits: {e}"
     if not commits:
