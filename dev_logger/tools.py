@@ -5,6 +5,7 @@ from typing import Optional
 from git import Repo, InvalidGitRepositoryError
 from langchain_core.tools import tool
 
+
 _repo: Optional[Repo] = None
 _repo_path: str = ""
 
@@ -46,7 +47,7 @@ def get_commits(since_date: str = "") -> str:
         return "Error: Repository not initialized."
     target_date = since_date.strip() if since_date else str(date.today())
     try:
-        commits = list(_repo.iter_commits(after=f"{target_date} 00:00:00"))
+        commits = list(_repo.iter_commits(after=f"{target_date} 00:00:00", before=f"{target_date} 23:59:59"))
     except Exception as e:
         return f"Error fetching commits: {e}"
     if not commits:
@@ -65,7 +66,7 @@ def list_changed_files(since_date: str = "") -> str:
         return "Error: Repository not initialized."
     target_date = since_date.strip() if since_date else str(date.today())
     try:
-        commits = list(_repo.iter_commits(after=f"{target_date} 00:00:00"))
+        commits = list(_repo.iter_commits(after=f"{target_date} 00:00:00", before=f"{target_date} 23:59:59"))
     except Exception as e:
         return f"Error: {e}"
     if not commits:
