@@ -11,6 +11,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 
 app = typer.Typer(help="Dev Logger Agent — auto-generate daily dev logs from git history.")
+
 console = Console()
 
 
@@ -32,6 +33,7 @@ def log(
     save: bool = typer.Option(True, "--save/--no-save", help="Save log to ./logs/"),
     output_dir: str = typer.Option("logs", "--output", "-o", help="Directory to save logs"),
     model: str = typer.Option("llama-3.3-70b-versatile", "--model", "-m", help="Groq model"),
+    local: bool = typer.Option(False, "--local", help="Use local Ollama model instead of Groq"),
 ):
     """Generate a structured dev log for a git repository."""
     repo_path = str(Path(path).resolve())
@@ -61,7 +63,7 @@ def log(
             if not commits:
                 console.print(f"[dim]  No commits on {target_date}, skipping.[/dim]")
                 continue
-            log_content = run_agent(repo_path=repo_path, log_date=target_date)
+            log_content = run_agent(repo_path=repo_path, log_date=target_date, local=local, model=model)
 
             console.print(Panel(Markdown(log_content), title=f"📋 {target_date}", border_style="green"))
 
