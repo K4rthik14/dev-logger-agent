@@ -2,6 +2,9 @@ import os
 from datetime import date, timedelta, datetime
 from pathlib import Path
 
+from dev_logger.tools import init_repo
+from git import Repo
+
 import typer
 from rich.console import Console
 from rich.markdown import Markdown
@@ -52,6 +55,12 @@ def log(
 
         for target_date in dates:
             console.print(f"\n[bold]📅 Processing {target_date}...[/bold]")
+            # Skip days with no commits
+            repo = Repo(repo_path, search_parent_directories=True)
+            commits = list(repo.iter_commits(after=f"{target_date} 00:00:00"))
+            if not commits:
+                console.print(f"[dim]  No commits on {target_date}, skipping.[/dim]")
+                continue
             log_content = run_agent(repo_path=repo_path, log_date=target_date)
 
             console.print(Panel(Markdown(log_content), title=f"📋 {target_date}", border_style="green"))
