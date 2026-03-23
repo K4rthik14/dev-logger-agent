@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -11,4 +11,4 @@ dependencies = []
 include = ["dev_logger*"]
 
 [project.scripts]
-dev-log = "dev_logger.__main__:main"
+dev-log = "dev_logger.cli:app"
