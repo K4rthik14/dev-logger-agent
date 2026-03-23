@@ -1,0 +1,7 @@
+[project]
+name = "dev-logger"
+version = "0.1.0"
+dependencies = []  # keep your requirements.txt as is
+
+[project.scripts]
+dev-log = "dev_logger.main:app"
