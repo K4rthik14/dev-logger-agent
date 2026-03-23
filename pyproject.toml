@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "dev-logger"
@@ -11,4 +11,4 @@ dependencies = []
 include = ["dev_logger*"]
 
 [project.scripts]
-dev-log = "dev_logger.main:app"
+dev-log = "dev_logger.__main__:main"
